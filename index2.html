@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Register with Us</h1>
+    <form id="regForm">
+        <div class="alert" id="msg"></div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Conform Password</label>
+            <input type="password" class="form-control" id="password2" name="password2">
+          </div>
+          
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+    <script>
+        function register(e){
+            e.preventDefault();
+            
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var password2 = document.getElementById('password2').value;
+            var msg = document.getElementById('msg');
+
+            if(name =='' || email ==''|| password =='' || password2 ==''){
+                msg.className="alert alert-danger";
+                msg.innerHTML = 'please fill out all fields';
+            }else{
+                if(name.length < 3 ){
+                    msg.className="alert alert-danger";
+                    msg.innerHTML = 'Name must be at leat 3 charaters';
+                }else{
+                    var atpos = email.indexOf('@');
+                    var dotpos = email.lastIndexOf(".");
+                    if(atpos <1 || dotpos < atpos+2 || dotpos+2 >=email.length){
+                        msg.className="alert alert-danger";
+                        msg.innerHTML = 'Please use valid email';
+                    }else{
+                        if(password != password2){
+                            msg.className="alert alert-danger";
+                            msg.innerHTML = 'password do not match';
+
+                        }else{
+                            //success
+                            msg.className="alert alert-success";
+                            msg.innerHTML = name+' is registered with email '+email;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        
+        document.getElementById('regForm').addEventListener('submit',register,false);
+    </script>
+</body>
+</html>
